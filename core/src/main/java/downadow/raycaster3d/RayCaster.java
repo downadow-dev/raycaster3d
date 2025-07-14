@@ -39,12 +39,12 @@ public class RayCaster implements ApplicationListener {
     Vector2 touch;
     BitmapFont font;
     final int WIDTH = 640, HEIGHT = 388;
-    final float FOV = 1.28f, MAXDIST = 22.5f;
+    final float FOV = 1.28f, MAXDIST = 40.0f;
     float playerX = 1.5f, playerY = 1.5f, playerAngle = 0;
     float player2X = -10000000, player2Y = -10000000;
     float weaponX = -10000000, weaponY = -10000000;
     boolean game = false;
-    String url = "<addr>:<port>";
+    String url = "";
     boolean withPlayer = false, playerShoot = false;
     boolean shot = false;
     private int score = 0;
@@ -207,7 +207,6 @@ public class RayCaster implements ApplicationListener {
         font = new BitmapFont(Gdx.files.internal("font/font.fnt"), false);
         font.setFixedWidthGlyphs(" ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890\"!`?'.,;:()[]{}<>|/@\\^$-%+=#_&~*ЁЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮёйцукенгшщзхъфывапролджэячсмитьбю█№—");
         font.setUseIntegerPositions(false);
-        font.setColor(Color.WHITE);
         
         colorTab = new Color[] {new Color(0.1f, 0.1f, 0.1f, 1),
             new Color(1.0f, 1.0f, 1.0f, 1), new Color(0.8f, 0.8f, 0.8f, 1),
@@ -278,8 +277,8 @@ public class RayCaster implements ApplicationListener {
                                     playerX = weaponX;
                                     playerY = weaponY;
                                 }
-                                weaponX += dirX * 0.15f;
-                                weaponY += dirY * 0.15f;
+                                weaponX += dirX * 0.16f;
+                                weaponY += dirY * 0.16f;
                                 try { Thread.sleep(18); } catch(Exception ex) {}
                             }
                             
@@ -418,9 +417,9 @@ public class RayCaster implements ApplicationListener {
                         
                         if(moveDest.y != 0.0f || moveDest.x != 0.0f) {
                             final float a = playerAngle - (float)Math.PI / 2 + (float)Math.atan2(moveDest.y - moveStart.y, moveStart.x - moveDest.x);
-                            final float newX = playerX + (float)Math.cos(a) * 0.062f;
+                            final float newX = playerX + (float)Math.cos(a) * 0.066f;
                             if(collision(newX, playerY) == 0) playerX = newX;
-                            final float newY = playerY + (float)Math.sin(a) * 0.062f;
+                            final float newY = playerY + (float)Math.sin(a) * 0.066f;
                             if(collision(playerX, newY) == 0) playerY = newY;
                         }
                     } catch(Exception ex) {}
@@ -448,9 +447,17 @@ public class RayCaster implements ApplicationListener {
         if(!game) {
             font.getData().setScale(0.4f);
             batch.begin();
-            font.draw(batch, url + "█", 10, HEIGHT - 20);
-            font.draw(batch, (url.isEmpty()) ? "[singleplayer]" : "[client]", 8, 20);
-            if(!url.isEmpty()) font.draw(batch, "[server]", WIDTH / 2, 20);
+            if(url.isEmpty()) {
+                font.setColor(Color.GRAY);
+                font.draw(batch, "<addr>:<port>", 10, HEIGHT - 20);
+                font.setColor(Color.WHITE);
+                font.draw(batch, "[singleplayer]", 8, 20);
+            } else {
+                font.setColor(Color.WHITE);
+                font.draw(batch, url + "█", 10, HEIGHT - 20);
+                font.draw(batch, "[client]", 8, 20);
+                font.draw(batch, "[server]", WIDTH / 2, 20);
+            }
             batch.end();
         } else {
             shape.begin(ShapeRenderer.ShapeType.Filled);
