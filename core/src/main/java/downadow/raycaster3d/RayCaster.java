@@ -277,8 +277,8 @@ public class RayCaster implements ApplicationListener {
                                     playerX = weaponX;
                                     playerY = weaponY;
                                 }
-                                weaponX += dirX * 0.18f;
-                                weaponY += dirY * 0.18f;
+                                weaponX += dirX * 0.175f;
+                                weaponY += dirY * 0.175f;
                                 try { Thread.sleep(18); } catch(Exception ex) {}
                             }
                             
@@ -417,9 +417,9 @@ public class RayCaster implements ApplicationListener {
                         
                         if(moveDest.y != 0.0f || moveDest.x != 0.0f) {
                             final float a = playerAngle - (float)Math.PI / 2 + (float)Math.atan2(moveDest.y - moveStart.y, moveStart.x - moveDest.x);
-                            final float newX = playerX + (float)Math.cos(a) * 0.08f;
+                            final float newX = playerX + (float)Math.cos(a) * 0.075f;
                             if(collision(newX, playerY) == 0) playerX = newX;
-                            final float newY = playerY + (float)Math.sin(a) * 0.08f;
+                            final float newY = playerY + (float)Math.sin(a) * 0.075f;
                             if(collision(playerX, newY) == 0) playerY = newY;
                         }
                     } catch(Exception ex) {}
