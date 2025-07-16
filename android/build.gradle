@@ -34,8 +34,8 @@ android {
     applicationId 'downadow.raycaster3d'
     minSdkVersion 21
     targetSdkVersion 35
-    versionCode 202519797
-    versionName "9.7tcp"
+    versionCode 202519898
+    versionName "9.8tcp"
   }
   compileOptions {
     sourceCompatibility "8"

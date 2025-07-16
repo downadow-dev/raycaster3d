@@ -39,7 +39,7 @@ public class RayCaster implements ApplicationListener {
     Vector2 touch;
     BitmapFont font;
     final int WIDTH = 640, HEIGHT = 388;
-    final float FOV = 1.28f, MAXDIST = 40.0f;
+    final float FOV = 1.28f, MAXDIST = 35.0f;
     float playerX = 1.5f, playerY = 1.5f, playerAngle = 0;
     float player2X = -10000000, player2Y = -10000000;
     float weaponX = -10000000, weaponY = -10000000;
@@ -277,8 +277,8 @@ public class RayCaster implements ApplicationListener {
                                     playerX = weaponX;
                                     playerY = weaponY;
                                 }
-                                weaponX += dirX * 0.175f;
-                                weaponY += dirY * 0.175f;
+                                weaponX += dirX * 0.18f;
+                                weaponY += dirY * 0.18f;
                                 try { Thread.sleep(18); } catch(Exception ex) {}
                             }
                             
@@ -340,6 +340,7 @@ public class RayCaster implements ApplicationListener {
                                             }
                                             if(msg.length == 4) {
                                                 shot = true;
+                                                withPlayer = false;
                                                 playerX = Float.parseFloat(msg[2]);
                                                 playerY = Float.parseFloat(msg[3]);
                                             } else shot = false;
@@ -370,6 +371,7 @@ public class RayCaster implements ApplicationListener {
                                         }
                                         if(msg.length == 4) {
                                             shot = true;
+                                            withPlayer = false;
                                             playerX = Float.parseFloat(msg[2]);
                                             playerY = Float.parseFloat(msg[3]);
                                         } else shot = false;
@@ -417,9 +419,9 @@ public class RayCaster implements ApplicationListener {
                         
                         if(moveDest.y != 0.0f || moveDest.x != 0.0f) {
                             final float a = playerAngle - (float)Math.PI / 2 + (float)Math.atan2(moveDest.y - moveStart.y, moveStart.x - moveDest.x);
-                            final float newX = playerX + (float)Math.cos(a) * 0.075f;
+                            final float newX = playerX + (float)Math.cos(a) * 0.077f;
                             if(collision(newX, playerY) == 0) playerX = newX;
-                            final float newY = playerY + (float)Math.sin(a) * 0.075f;
+                            final float newY = playerY + (float)Math.sin(a) * 0.077f;
                             if(collision(playerX, newY) == 0) playerY = newY;
                         }
                     } catch(Exception ex) {}
